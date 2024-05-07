@@ -5,7 +5,26 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v
+PROJECT_SOURCES =               \
+underserved.v		        \
+subservient_gpio.v	        \
+spimemio.v		        \
+serv_1.2.1/rtl/serv_aligner.v   \
+serv_1.2.1/rtl/serv_rf_top.v    \
+serv_1.2.1/rtl/serv_csr.v       \
+serv_1.2.1/rtl/serv_compdec.v   \
+serv_1.2.1/rtl/serv_rf_ram.v    \
+serv_1.2.1/rtl/serv_bufreg2.v   \
+serv_1.2.1/rtl/serv_bufreg.v    \
+serv_1.2.1/rtl/serv_top.v       \
+serv_1.2.1/rtl/serv_immdec.v    \
+serv_1.2.1/rtl/serv_rf_if.v     \
+serv_1.2.1/rtl/serv_ctrl.v      \
+serv_1.2.1/rtl/serv_rf_ram_if.v \
+serv_1.2.1/rtl/serv_state.v     \
+serv_1.2.1/rtl/serv_mem_if.v    \
+serv_1.2.1/rtl/serv_decode.v    \
+serv_1.2.1/rtl/serv_alu.v
 
 ifneq ($(GATES),yes)
 
@@ -32,7 +51,7 @@ VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
 endif
 
 # Include the testbench sources:
-VERILOG_SOURCES += $(PWD)/tb.v 
+VERILOG_SOURCES += $(PWD)/spiflash.v $(PWD)/tb.v
 TOPLEVEL = tb
 
 # MODULE is the basename of the Python test file

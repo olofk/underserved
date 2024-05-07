@@ -1,21 +1,39 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  title:        "underserved"
+  author:       "Olof Kindgren"
+  discord:      "awardwinningolof_67894"
+  description:  "The award-winning SERV, the world's smallest RISC-V CPU. Now on Tiny Tapeout!"
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     20000000
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  tiles: "1x2"
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_example"
+  top_module:  "tt_um_underserved"
   
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
-    - "project.v"
+    - serv_1.2.1/rtl/serv_bufreg.v
+    - serv_1.2.1/rtl/serv_bufreg2.v
+    - serv_1.2.1/rtl/serv_alu.v
+    - serv_1.2.1/rtl/serv_csr.v
+    - serv_1.2.1/rtl/serv_ctrl.v
+    - serv_1.2.1/rtl/serv_decode.v
+    - serv_1.2.1/rtl/serv_immdec.v
+    - serv_1.2.1/rtl/serv_mem_if.v
+    - serv_1.2.1/rtl/serv_rf_if.v
+    - serv_1.2.1/rtl/serv_rf_ram_if.v
+    - serv_1.2.1/rtl/serv_rf_ram.v
+    - serv_1.2.1/rtl/serv_state.v
+    - serv_1.2.1/rtl/serv_top.v
+    - serv_1.2.1/rtl/serv_rf_top.v
+    - serv_1.2.1/rtl/serv_aligner.v
+    - serv_1.2.1/rtl/serv_compdec.v
+    - subservient_gpio.v
+    - spimemio.v
+    - underserved.v
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
@@ -34,10 +52,10 @@ pinout:
   uo[1]: ""
   uo[2]: ""
   uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[4]: "mosi"
+  uo[5]: "sclk"
+  uo[6]: "cs_n"
+  uo[7]: "gpio"
 
   # Bidirectional pins
   uio[0]: ""
@@ -47,7 +65,7 @@ pinout:
   uio[4]: ""
   uio[5]: ""
   uio[6]: ""
-  uio[7]: ""
+  uio[7]: "miso"
 
 # Do not change!
 yaml_version: 6
