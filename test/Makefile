@@ -8,6 +8,7 @@ SRC_DIR = $(PWD)/../src
 PROJECT_SOURCES =               \
 underserved.v		        \
 subservient_gpio.v	        \
+rf_shift_reg.v                  \
 spimemio.v		        \
 serv_1.2.1/rtl/serv_aligner.v   \
 serv_1.2.1/rtl/serv_rf_top.v    \

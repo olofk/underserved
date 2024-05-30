@@ -7,6 +7,7 @@ filesets:
     files:
       - src/spimemio.v
       - src/subservient_gpio.v
+      - src/rf_shift_reg.v
       - src/underserved.v
     file_type:
       verilogSource
@@ -15,9 +16,8 @@ filesets:
   tb:
     files:
       - test/spiflash.v
-      - test/uart_decoder.v
       - test/tb.v
-      - sw/hello.hex : {file_type: user, copyto: firmware.hex}
+      - test/firmware.hex : {file_type: user, copyto: firmware.hex}
       - test/test.py : {file_type: user, copyto: .}
     file_type : verilogSource
 
@@ -27,5 +27,5 @@ targets:
     flow: sim
     flow_options:
       tool: icarus
-      cocotb_module: test.py
+      cocotb_module: test
     toplevel : tb
