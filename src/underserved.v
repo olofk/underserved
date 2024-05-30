@@ -17,20 +17,10 @@ module tt_um_underserved (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-   parameter	      memsize = 128;
-   parameter aw    = $clog2(memsize)+2;
-
   // All output pins must be assigned. If not used, assign to 0.
   assign uo_out[3:0]  = ui_in[6:0] + uio_in[7:0];  // Example: ou_out is the sum of ui_in and uio_in
   assign uio_out = 0;
   assign uio_oe  = 0;
-
-   wire [aw-1:0] sram_waddr;
-   wire [rf_width-1:0] 	 sram_wdata;
-   wire 	 sram_wen;
-   wire [aw-1:0] sram_raddr;
-   wire [rf_width-1:0] sram_rdata;
-   wire 	 sram_ren;
 
    wire [31:0] 	wb_ibus_adr;
    wire 	wb_ibus_stb;
@@ -45,39 +35,20 @@ module tt_um_underserved (
    wire 	wb_dbus_stb;
    wire 	wb_gpio_ack;
    
-   wire 		   rf_wreq;
-   wire 		   rf_rreq;
-   wire [$clog2(32)-1:0] wreg0;
-   wire [$clog2(32)-1:0] wreg1;
-   wire 		   wen0;
-   wire 		   wen1;
-   wire 		   wdata0;
-   wire 		   wdata1;
-   wire [$clog2(32)-1:0] rreg0;
-   wire [$clog2(32)-1:0] rreg1;
-   wire 		   rf_ready;
-   wire 		   rdata0;
-   wire 		   rdata1;
+   wire		rf_wreq;
+   wire		rf_rreq;
+   wire [4:0]	wreg0;
+   wire		wen0;
+   wire		wdata0;
+   wire [4:0]	rreg0;
+   wire [4:0]	rreg1;
+   wire		rf_ready;
+   wire		rdata0;
+   wire		rdata1;
 
-   localparam		   rf_width = 2;
-
-   serv_rf_ram
-     #(.width (rf_width),
-       .depth (64))
-   memory
-     (.i_clk   (clk),
-      .i_waddr (sram_waddr[5:0]),
-      .i_wdata (sram_wdata),
-      .i_wen   (sram_wen),
-      .i_raddr (sram_raddr[5:0]),
-      .o_rdata (sram_rdata),
-      .i_ren   (sram_ren));
-
-   serv_rf_ram_if
-     #(.width    (rf_width),
-       .reset_strategy ("MINI"),
-       .csr_regs (0))
-   rf_ram_if
+   rf_shift_reg
+     #(.nr_regs (5))
+   rf_shift_reg
      (.i_clk    (clk),
       .i_rst    (!rst_n),
       //RF IF
@@ -85,22 +56,12 @@ module tt_um_underserved (
       .i_rreq   (rf_rreq),
       .o_ready  (rf_ready),
       .i_wreg0  (wreg0),
-      .i_wreg1  (wreg1),
       .i_wen0   (wen0),
-      .i_wen1   (wen1),
       .i_wdata0 (wdata0),
-      .i_wdata1 (wdata1),
       .i_rreg0  (rreg0),
       .i_rreg1  (rreg1),
       .o_rdata0 (rdata0),
-      .o_rdata1 (rdata1),
-      //SRAM IF
-      .o_waddr  (sram_waddr),
-      .o_wdata  (sram_wdata),
-      .o_wen    (sram_wen),
-      .o_raddr  (sram_raddr),
-      .o_ren    (sram_ren),
-      .i_rdata  (sram_rdata));
+      .o_rdata1 (rdata1));
 
    serv_top
      #(
@@ -121,11 +82,11 @@ module tt_um_underserved (
       .o_rf_wreq   (rf_wreq),
       .i_rf_ready  (rf_ready),
       .o_wreg0     (wreg0),
-      .o_wreg1     (wreg1),
+      .o_wreg1     (),
       .o_wen0      (wen0),
-      .o_wen1      (wen1),
+      .o_wen1      (),
       .o_wdata0    (wdata0),
-      .o_wdata1    (wdata1),
+      .o_wdata1    (),
       .o_rreg0     (rreg0),
       .o_rreg1     (rreg1),
       .i_rdata0    (rdata0),
