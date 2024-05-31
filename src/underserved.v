@@ -17,8 +17,6 @@ module tt_um_underserved (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out[3:0]  = ui_in[6:0] + uio_in[7:0];  // Example: ou_out is the sum of ui_in and uio_in
   assign uio_out = 0;
   assign uio_oe  = 0;
 
@@ -119,12 +117,12 @@ module tt_um_underserved (
    subservient_gpio gpio
      (.i_wb_clk (clk),
       .i_wb_rst (!rst_n),
-      .i_wb_dat (wb_dbus_dat[0]),
+      .i_wb_dat (wb_dbus_dat[4:0]),
       .i_wb_we  (wb_dbus_we),
       .i_wb_stb (wb_dbus_stb & wb_dbus_we),
       .o_wb_rdt (),
       .o_wb_ack (wb_gpio_ack),
-      .o_gpio   (uo_out[7]));
+      .o_gpio   (uo_out[4:0]));
 
    assign wb_mem_adr = wb_ibus_stb ? wb_ibus_adr : wb_dbus_adr;
 
@@ -146,7 +144,7 @@ module tt_um_underserved (
       .flash_io2_oe (),
       .flash_io3_oe (),
 
-      .flash_io0_do (uo_out[4]), //mosi
+      .flash_io0_do (uo_out[7]), //mosi
       .flash_io1_do (),
       .flash_io2_do (),
       .flash_io3_do (),

@@ -43,6 +43,6 @@ async def test_project(dut):
 
     expected = "SERV+Tinytapeout rocks!\n"
     for e in expected:
-        rx = await uart_decoder(dut.gpio, 5000000000000//70000)
+        rx = await uart_decoder(dut.gpio0, 5000000000000//70000)
         assert rx == ord(e)
         dut._log.info(f"Got: {e}")

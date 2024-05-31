@@ -6,14 +6,14 @@
  */
 
 module subservient_gpio
-  (input wire i_wb_clk,
-   input wire i_wb_rst,
-   input wire i_wb_dat,
-   input wire i_wb_we,
-   input wire i_wb_stb,
-   output reg o_wb_rdt,
-   output reg o_wb_ack,
-   output reg o_gpio);
+  (input wire	    i_wb_clk,
+   input wire	    i_wb_rst,
+   input wire [4:0] i_wb_dat,
+   input wire	    i_wb_we,
+   input wire	    i_wb_stb,
+   output reg	    o_wb_rdt,
+   output reg	    o_wb_ack,
+   output reg [4:0] o_gpio);
 
    always @(posedge i_wb_clk) begin
       o_wb_rdt <= o_gpio;
@@ -23,7 +23,7 @@ module subservient_gpio
 
       if (i_wb_rst) begin
 	 o_wb_ack <= 1'b0;
-	 o_gpio   <= 1'b0;
+	 o_gpio   <= 5'd0;
       end
    end
 endmodule
