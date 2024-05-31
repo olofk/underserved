@@ -29,3 +29,20 @@ targets:
       tool: icarus
       cocotb_module: test
     toplevel : tb
+
+  sim:
+    description: Underserved testbench. Runs a program from simulated SPI Flash and outputs to gpio0 as a UART.
+    filesets: [rtl, tb]
+    flow: sim
+    flow_options:
+      tool: icarus
+      cocotb_module: test
+    toplevel : tb
+
+  lint:
+    description: Static code checks
+    filesets: [rtl]
+    flow: lint
+    flow_options:
+      tool: verilator
+    toplevel : tt_um_underserved
