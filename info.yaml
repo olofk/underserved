@@ -49,14 +49,14 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: "mosi"
+  uo[0]: "gpio0"
+  uo[1]: "gpio1"
+  uo[2]: "gpio2"
+  uo[3]: "gpio3"
+  uo[4]: "gpio4"
   uo[5]: "sclk"
   uo[6]: "cs_n"
-  uo[7]: "gpio"
+  uo[7]: "mosi"
 
   # Bidirectional pins
   uio[0]: ""
